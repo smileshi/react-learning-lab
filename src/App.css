@@ -1,0 +1,25 @@
+.learning-lab { display: flex; min-height: 100vh; }
+.sidebar { width: 260px; flex-shrink: 0; padding: 28px 20px; background: #fff; border-right: 1px solid #dce3ed; }
+.sidebar h1 { font-size: 22px; margin: 0 0 8px; }
+.sidebar > p, .lesson-header p { color: #596779; }
+.sidebar nav { display: grid; gap: 10px; margin-top: 28px; }
+.lesson-link { width: 100%; text-align: left; padding: 12px 14px; background: transparent; border: 1px solid transparent; border-radius: 8px; }
+.lesson-link span, .lesson-link strong { display: block; }
+.lesson-link span { font-size: 13px; margin-bottom: 4px; color: #596779; }
+.lesson-link:hover { background: #f0f5ff; }
+.lesson-link.active { background: #eaf1ff; border-color: #2563eb; color: #1745a4; }
+.lesson-main { flex: 1; min-width: 0; padding: 36px; }
+.lesson-header { margin-bottom: 24px; }
+.lesson-header h2 { margin: 8px 0 12px; }
+.demo-panel { max-width: 900px; padding: 28px; border: 1px solid #dce3ed; border-radius: 12px; background: #fff; overflow-wrap: anywhere; }
+.demo-panel h1 { font-size: 28px; }
+.demo-panel button { margin: 6px; padding: 7px 12px; background: #f0f5ff; border: 1px solid #b9c9e2; border-radius: 6px; }
+.demo-panel input { max-width: 100%; padding: 8px 10px; border: 1px solid #a4b2c6; border-radius: 6px; }
+.demo-panel hr { border: 0; border-top: 1px solid #dce3ed; margin: 20px 0; }
+@media (max-width: 700px) {
+  .learning-lab { flex-direction: column; }
+  .sidebar { width: 100%; border-right: 0; border-bottom: 1px solid #dce3ed; }
+  .sidebar nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lesson-main { padding: 20px; }
+  .demo-panel { padding: 20px; }
+}
