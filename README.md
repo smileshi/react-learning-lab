@@ -1,3 +1,24 @@
+# React 学习实验室
+
+面向有 Java 和 Angular 经验的开发者，通过独立示例学习 React，并逐步完成 Spring Boot 接口联调。
+
+## 学习计划
+
+[查看三周学习计划与进度跟踪表](./LEARNING_PLAN.md)
+
+## 本地运行
+
+```sh
+npm install
+npm run dev
+```
+
+打开终端显示的网址，通过左侧导航切换 Day 1 的六个示例。
+
+类型检查与构建：`npm run build`。
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -73,3 +94,4 @@ export default defineConfig([
 ])
 
 ```
+
