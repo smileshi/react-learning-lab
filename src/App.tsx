@@ -10,6 +10,11 @@ import UserValidationDemo from './lessons/day02/step02-form-validation/UserValid
 import UserCreateDemo from './lessons/day02/step04-user-create/UserCreateDemo'
 import UserSubmitDemo from './lessons/day02/step03-form-submit/UserSubmitDemo'
 import './App.css'
+import UserListApiDemo from './lessons/day03/step01-axios/UserListApiDemo'
+import UserListAutoApiDemo from './lessons/day03/step02-useeffect/UserListAutoApiDemo'
+import UserListStatusApiDemo from './lessons/day03/step03/UserListStatusApiDemo'
+import UserListServiceApiDemo from './lessons/day03/step04/UserListServiceApiDemo'
+import UserManagementDemo from './lessons/day03/step05-user-management/UserManagementDemo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -22,6 +27,11 @@ const lessons = [
   { day: 2, title: '表单校验', component: UserValidationDemo },
   { day: 2, title: '表单提交', component: UserSubmitDemo },
   { day: 2, title: '创建用户', component: UserCreateDemo },
+  { day: 3, title: 'Axios 基础及真实 GET', component: UserListApiDemo },
+  { day: 3, title: 'useEffect 自动获取数据', component: UserListAutoApiDemo },
+  { day: 3, title: 'Loading、Error、Success 状态管理', component: UserListStatusApiDemo },
+  { day: 3, title: 'API Service 封装', component: UserListServiceApiDemo },
+  { day: 3, title: '用户管理综合实战', component: UserManagementDemo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]
