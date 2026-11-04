@@ -5,37 +5,61 @@ import UserPage from './lessons/day01/step03-components-props/UserPage'
 import UserStateDemo from './lessons/day01/step04-usestate/UserStateDemo'
 import UserEffectDemo from './lessons/day01/step05-useeffect/UserEffectDemo'
 import UserSearch from './lessons/day01/step06-useref/UserSearch'
+import UserFormDemo from './lessons/day02/step01-events-forms/UserFormDemo'
+import UserValidationDemo from './lessons/day02/step02-form-validation/UserValidationDemo'
+import UserCreateDemo from './lessons/day02/step04-user-create/UserCreateDemo'
+import UserSubmitDemo from './lessons/day02/step03-form-submit/UserSubmitDemo'
 import './App.css'
 
 const lessons = [
-  { title: '组件入门', component: IntroDemo },
-  { title: 'JSX 与列表渲染', component: JsxDemo },
-  { title: '组件与 Props', component: UserPage },
-  { title: 'useState 状态管理', component: UserStateDemo },
-  { title: 'useEffect 副作用', component: UserEffectDemo },
-  { title: 'useRef 与 DOM', component: UserSearch },
+  { day: 1, title: '组件入门', component: IntroDemo },
+  { day: 1, title: 'JSX 与列表渲染', component: JsxDemo },
+  { day: 1, title: '组件与 Props', component: UserPage },
+  { day: 1, title: 'useState 状态管理', component: UserStateDemo },
+  { day: 1, title: 'useEffect 副作用', component: UserEffectDemo },
+  { day: 1, title: 'useRef 与 DOM', component: UserSearch },
+  { day: 2, title: '事件与受控表单', component: UserFormDemo },
+  { day: 2, title: '表单校验', component: UserValidationDemo },
+  { day: 2, title: '表单提交', component: UserSubmitDemo },
+  { day: 2, title: '创建用户', component: UserCreateDemo },
 ]
+
+const days = [...new Set(lessons.map(lesson => lesson.day))]
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const selectedLesson = lessons[selectedIndex]
+  const dayLessons = lessons.filter(lesson => lesson.day === selectedLesson.day)
+  const selectedStep = dayLessons.indexOf(selectedLesson) + 1
   const SelectedDemo = selectedLesson.component
 
   return (
     <div className="learning-lab">
       <aside className="sidebar">
         <h1>React 学习实验室</h1>
-        <p>Day 1 · React 基础</p>
-        <nav aria-label="Day 1 课程">
-          {lessons.map((lesson, index) => (
+        <p>每天一步，动手学习 React</p>
+        <label className="day-label" htmlFor="learning-day">选择学习日</label>
+        <select
+          id="learning-day"
+          className="day-select"
+          value={selectedLesson.day}
+          onChange={event => setSelectedIndex(
+            lessons.findIndex(lesson => lesson.day === Number(event.target.value))
+          )}
+        >
+          {days.map(day => <option key={day} value={day}>Day {day}</option>)}
+        </select>
+        <p className="day-summary">Day {selectedLesson.day} · 共 {dayLessons.length} 节课程</p>
+        <nav aria-label="学习课程">
+          {dayLessons.map((lesson, index) => (
             <button
               key={lesson.title}
               type="button"
-              className={selectedIndex === index ? 'lesson-link active' : 'lesson-link'}
-              aria-current={selectedIndex === index ? 'page' : undefined}
-              onClick={() => setSelectedIndex(index)}
+              className={selectedLesson === lesson ? 'lesson-link active' : 'lesson-link'}
+              aria-current={selectedLesson === lesson ? 'page' : undefined}
+              onClick={() => setSelectedIndex(lessons.indexOf(lesson))}
             >
-              <span>Day 1 · Step {index + 1}</span>
+              <span>Day {lesson.day} · Step {index + 1}</span>
               <strong>{lesson.title}</strong>
             </button>
           ))}
@@ -43,7 +67,7 @@ function App() {
       </aside>
       <main className="lesson-main">
         <header className="lesson-header">
-          <p>Day 1 · Step {selectedIndex + 1}</p>
+          <p>Day {selectedLesson.day} · Step {selectedStep}</p>
           <h2>{selectedLesson.title}</h2>
           <p>动手操作下方示例，观察页面变化。切换课程后，示例状态会重置。</p>
         </header>
@@ -56,3 +80,7 @@ function App() {
 }
 
 export default App
+
+
+
+

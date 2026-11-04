@@ -23,3 +23,18 @@
   .lesson-main { padding: 20px; }
   .demo-panel { padding: 20px; }
 }
+
+/* Day 2 form controls */
+.demo-panel label { display: inline-block; min-width: 100px; margin: 8px 12px 8px 0; }
+.demo-panel select { font: inherit; color: inherit; max-width: 100%; padding: 8px 10px; border: 1px solid #a4b2c6; border-radius: 6px; }
+.demo-panel select:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+.demo-panel pre { overflow-x: auto; padding: 16px; background: #f5f7fb; border-radius: 6px; }
+
+.day-label { display: block; margin: 24px 0 8px; font-size: 14px; font-weight: 600; }
+.day-select { width: 100%; padding: 10px 12px; font: inherit; color: inherit; background: #fff; border: 1px solid #a4b2c6; border-radius: 8px; }
+.day-select:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+.day-summary { font-size: 13px; margin-top: 12px; }
+.sidebar nav { margin-top: 16px; }
+@media (min-width: 701px) {
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+}
