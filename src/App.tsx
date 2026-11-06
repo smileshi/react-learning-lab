@@ -23,6 +23,12 @@ import EffectCleanupDemo from './lessons/day05/step02-cleanup/EffectCleanupDemo'
 import LifecycleDemo from './lessons/day05/step03-lifecycle/LifecycleDemo'
 import UseCallbackDemo from './lessons/day05/step04-callback/UseCallbackDemo'
 import UserSearchHooksDemo from './lessons/day05/step05-hooks/UserSearchHooksDemo'
+import RenderDemo from './lessons/day06/step01-render/RenderDemo'
+import MemoDemo from './lessons/day06/step02-memo/MemoDemo'
+import UseMemoDemo from './lessons/day06/step03-memo/UseMemoDemo'
+import CallbackMemoDemo from './lessons/day06/step04-callback-memo/CallbackMemoDemo'
+import UserManagementPerformanceDemo from './lessons/day06/step05-performance/UserManagementPerformanceDemo'
+import UserManagementWeek1Demo from './lessons/day07/UserManagementWeek1Demo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -50,6 +56,14 @@ const lessons = [
   { day: 5, title: '组件挂载、更新、卸载', component: LifecycleDemo },
   { day: 5, title: 'useCallback', component: UseCallbackDemo },
   { day: 5, title: 'Hooks 综合实战', component: UserSearchHooksDemo },
+
+  { day: 6, title: 'React 渲染机制', component: RenderDemo },
+  { day: 6, title: 'React.memo', component: MemoDemo },
+  { day: 6, title: 'useMemo', component: UseMemoDemo },
+  { day: 6, title: 'useCallback + React.memo', component: CallbackMemoDemo },
+  { day: 6, title: '性能优化综合实战', component: UserManagementPerformanceDemo },
+
+  { day: 7, title: '一周总结', component: UserManagementWeek1Demo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]

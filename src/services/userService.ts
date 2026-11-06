@@ -25,8 +25,14 @@ const createUser = async (
   return response.data;
 };
 
+// 删除用户
+const deleteUser = async (id: number): Promise<void> => {
+  await http.delete(`/api/users/${id}`);
+};
+
 export const userService = {
   getUsers,
   getUserById,
-  createUser
+  createUser,
+  deleteUser
 };
