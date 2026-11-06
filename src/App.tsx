@@ -15,6 +15,14 @@ import UserListAutoApiDemo from './lessons/day03/step02-useeffect/UserListAutoAp
 import UserListStatusApiDemo from './lessons/day03/step03/UserListStatusApiDemo'
 import UserListServiceApiDemo from './lessons/day03/step04/UserListServiceApiDemo'
 import UserManagementDemo from './lessons/day03/step05-user-management/UserManagementDemo'
+import UserListDemo from './lessons/day04/step02-list/UserListDemo'
+import UserSearchDemo from './lessons/day04/step03-search/UserSearchDemo'
+import UserManagementDeleteDemo from './lessons/day04/step04-delete/UserManagementDeleteDemo'
+import EffectDependencyDemo from './lessons/day05/step01-effect/EffectDependencyDemo'
+import EffectCleanupDemo from './lessons/day05/step02-cleanup/EffectCleanupDemo'
+import LifecycleDemo from './lessons/day05/step03-lifecycle/LifecycleDemo'
+import UseCallbackDemo from './lessons/day05/step04-callback/UseCallbackDemo'
+import UserSearchHooksDemo from './lessons/day05/step05-hooks/UserSearchHooksDemo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -32,6 +40,16 @@ const lessons = [
   { day: 3, title: 'Loading、Error、Success 状态管理', component: UserListStatusApiDemo },
   { day: 3, title: 'API Service 封装', component: UserListServiceApiDemo },
   { day: 3, title: '用户管理综合实战', component: UserManagementDemo },
+  { day: 4, title: '条件渲染', component: UserManagementDemo },
+  { day: 4, title: '列表渲染与组件组合', component: UserListDemo },
+  { day: 4, title: '搜索与过滤用户列表', component: UserSearchDemo },
+  { day: 4, title: '组件组合与删除', component: UserManagementDeleteDemo },
+
+  { day: 5, title: 'useEffect 依赖数组深入理解', component: EffectDependencyDemo },
+  { day: 5, title: 'Effect Cleanup', component: EffectCleanupDemo },
+  { day: 5, title: '组件挂载、更新、卸载', component: LifecycleDemo },
+  { day: 5, title: 'useCallback', component: UseCallbackDemo },
+  { day: 5, title: 'Hooks 综合实战', component: UserSearchHooksDemo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]
