@@ -17,7 +17,7 @@ const UserItem = memo(function UserItem({
   console.log('UserItem rendered:', user.username);
 
   return (
-    <div>
+    <div>      
       <h3>{user.username}</h3>
       <p>{user.email}</p>
       <UserRole role={user.role} />

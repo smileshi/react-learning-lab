@@ -11,7 +11,8 @@ type Props = {
 
 };
 
-const UserList = memo(function UserList({
+const UserList = memo(
+function UserList({
   users, onDelete, deletingId, deleteDisabled
 }: Props) {
   console.log('UserList rendered');
@@ -21,7 +22,7 @@ const UserList = memo(function UserList({
   }
 
   return (
-    <div>
+    <div>      
       {users.map(user => (
         <UserItem
           key={user.id}

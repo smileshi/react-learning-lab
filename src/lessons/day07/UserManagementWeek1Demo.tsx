@@ -34,7 +34,10 @@ function UserManagementWeek1Demo() {
       (user.username.toLowerCase().includes(query) || user.email.toLowerCase().includes(query))
     );
   }, [users, keyword, roleFilter]);
-  const roles = useMemo(() => [...new Set(users.map(user => user.role))].sort(), [users]);
+  const roles = useMemo(
+  () => [...new Set(users.map(user => user.role))].sort(),
+  [users]
+);
 
   const requestId = useRef(0);
 
@@ -61,23 +64,29 @@ function UserManagementWeek1Demo() {
   }, []);
 
   // Load users when component mounts
-  useEffect(() => {
-    const currentRequest = ++requestId.current;
-    async function fetchInitialUsers() {
-      try {
-        const data = await userService.getUsers();
-        if (currentRequest === requestId.current) setUsers(data);
-      } catch {
-        if (currentRequest === requestId.current) setLoadError('Failed to load users.');
-      } finally {
-        if (currentRequest === requestId.current) setLoading(false);
-      }
-    }
-    void fetchInitialUsers();
-    return () => { requestId.current += 1; };
-  }, []);
+  // useEffect(() => {
+  //   const currentRequest = ++requestId.current;
+  //   async function fetchInitialUsers() {
+  //     try {
+  //       const data = await userService.getUsers();
+  //       if (currentRequest === requestId.current) setUsers(data);
+  //     } catch {
+  //       if (currentRequest === requestId.current) setLoadError('Failed to load users.');
+  //     } finally {
+  //       if (currentRequest === requestId.current) setLoading(false);
+  //     }
+  //   }
+  //   void fetchInitialUsers();
+  //   return () => { requestId.current += 1; };
+  // }, []);
 
-  
+  useEffect(() => {
+    void loadUsers();
+
+    return () => {
+      requestId.current += 1;
+    };
+  }, [loadUsers]);
 
 // POST /api/users
   const handleCreateUser = useCallback(async (
@@ -130,7 +139,7 @@ function UserManagementWeek1Demo() {
   }, [loading, submitting]);
   return (
     <div style={{ padding: 24, maxWidth: 800 }}>
-      <h2>Banking System - User Management Week 1 Demo</h2>
+      <h2>Banking System - User Management Week 1 Demo</h2>      
       <hr />
       
       <UserForm
@@ -169,11 +178,12 @@ function UserManagementWeek1Demo() {
               {loadError}
             </p>
             <button
-              type="button"
-              onClick={() => void loadUsers()}
-            >
-              Retry
-            </button>
+            type="button"
+            onClick={() => void loadUsers()}
+            disabled={loading || submitting || deletingId !== null}
+          >
+            Retry
+          </button>
           </div>
         )}
 
