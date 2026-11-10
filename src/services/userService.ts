@@ -3,8 +3,17 @@ import type { CreateUserRequest, User } from '../types/user';
 
 
 // 查询所有用户
-const getUsers = async (): Promise<User[]> => {
-  const response = await http.get<User[]>('/api/users');
+type UserQueryParams = {
+  keyword?: string;
+  role?: string;
+};
+
+const getUsers = async (
+  params?: UserQueryParams
+): Promise<User[]> => {
+  const response = await http.get<User[]>('/api/users', {
+    params
+  });
 
   return response.data;
 };

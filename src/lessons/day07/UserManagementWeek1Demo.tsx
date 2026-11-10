@@ -27,13 +27,13 @@ function UserManagementWeek1Demo() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [deleteError, setDeleteError] = useState('');
   const deleteInFlight = useRef(false);
-  const filteredUsers = useMemo(() => {
-    const query = keyword.trim().toLowerCase();
-    return users.filter(user =>
-      (!roleFilter || user.role === roleFilter) &&
-      (user.username.toLowerCase().includes(query) || user.email.toLowerCase().includes(query))
-    );
-  }, [users, keyword, roleFilter]);
+  // const filteredUsers = useMemo(() => {
+  //   const query = keyword.trim().toLowerCase();
+  //   return users.filter(user =>
+  //     (!roleFilter || user.role === roleFilter) &&
+  //     (user.username.toLowerCase().includes(query) || user.email.toLowerCase().includes(query))
+  //   );
+  // }, [users, keyword, roleFilter]);
   const roles = useMemo(
   () => [...new Set(users.map(user => user.role))].sort(),
   [users]
@@ -47,10 +47,15 @@ function UserManagementWeek1Demo() {
     try {
         // 1. 设置 loading = true
         setLoading(true);
+        console.log(loading);
         // 2. 清空之前的错误
         setLoadError('');
         // 3. 调用 userService.getUsers()
-        const data = await userService.getUsers();
+        // const data = await userService.getUsers();
+        const data = await userService.getUsers({
+          keyword: keyword.trim() || undefined,
+          role: roleFilter || undefined
+        });
         // 4. 将返回数据保存到 users
         if (currentRequest === requestId.current) setUsers(data);
     } catch (err) {
@@ -61,7 +66,7 @@ function UserManagementWeek1Demo() {
         // 6. finally 设置 loading = false
         if (currentRequest === requestId.current) setLoading(false);
     }
-  }, []);
+  }, [keyword, roleFilter]);
 
   // Load users when component mounts
   // useEffect(() => {
@@ -80,13 +85,22 @@ function UserManagementWeek1Demo() {
   //   return () => { requestId.current += 1; };
   // }, []);
 
-  useEffect(() => {
-    void loadUsers();
+  // useEffect(() => {
+  //   void loadUsers();
 
-    return () => {
-      requestId.current += 1;
-    };
-  }, [loadUsers]);
+  //   return () => {
+  //     requestId.current += 1;
+  //   };
+  // }, [loadUsers]);
+  useEffect(() => {
+  const timer = window.setTimeout(() => {
+    void loadUsers();
+  }, 800);
+
+  return () => {
+    window.clearTimeout(timer);
+  };
+}, [loadUsers]);
 
 // POST /api/users
   const handleCreateUser = useCallback(async (
@@ -137,6 +151,11 @@ function UserManagementWeek1Demo() {
       setDeletingId(null);
     }
   }, [loading, submitting]);
+
+
+  const hasSearchCriteria =
+  keyword.trim() !== '' || roleFilter !== '';
+
   return (
     <div style={{ padding: 24, maxWidth: 800 }}>
       <h2>Banking System - User Management Week 1 Demo</h2>      
@@ -155,11 +174,16 @@ function UserManagementWeek1Demo() {
 
         <button
           type="button"
-          onClick={() => void loadUsers()}
           disabled={loading || submitting || deletingId !== null}
+          style={{
+            backgroundColor: loading ? '#ccc' : '#007bff',
+            color: '#fff',
+            cursor: loading ? 'not-allowed' : 'pointer'
+          }}
+          onClick={() => void loadUsers()}
         >
           reload
-        </button>        
+        </button>       
 
         <UserFilter
           keyword={keyword}
@@ -168,7 +192,7 @@ function UserManagementWeek1Demo() {
           onKeywordChange={setKeyword}
           onRoleChange={setRoleFilter}
         />
-        <p>Showing {filteredUsers.length} of {users.length} users</p>
+        <p>Showing {users.length} users</p>
         {deleteError && <p role="alert" style={{ color: 'red' }}>{deleteError}</p>}
         {loading && <p>Loading users...</p>}
 
@@ -187,13 +211,17 @@ function UserManagementWeek1Demo() {
           </div>
         )}
 
-        {!loading && !loadError && filteredUsers.length === 0 && (
-          <p>{users.length === 0 ? 'No users found.' : 'No users match your filters.'}</p>
+        {!loading && !loadError && users.length === 0 && (
+          <p>
+            {hasSearchCriteria
+              ? 'No users match your search.'
+              : 'No users found.'}
+          </p>
         )}
 
-        {!loading && !loadError && filteredUsers.length > 0 && (
+        {!loading && users.length > 0 && (
           <UserList
-            users={filteredUsers}
+            users={users}
             onDelete={handleDelete}
             deletingId={deletingId}
             deleteDisabled={submitting || deletingId !== null}

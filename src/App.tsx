@@ -29,6 +29,7 @@ import UseMemoDemo from './lessons/day06/step03-memo/UseMemoDemo'
 import CallbackMemoDemo from './lessons/day06/step04-callback-memo/CallbackMemoDemo'
 import UserManagementPerformanceDemo from './lessons/day06/step05-performance/UserManagementPerformanceDemo'
 import UserManagementWeek1Demo from './lessons/day07/UserManagementWeek1Demo'
+import TestCase from './lessons/day08/TestCase'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -64,6 +65,13 @@ const lessons = [
   { day: 6, title: '性能优化综合实战', component: UserManagementPerformanceDemo },
 
   { day: 7, title: '一周总结', component: UserManagementWeek1Demo },
+
+  { day: 8, title: 'HTTP 请求基础、Axios 与 Fetch', component: UserManagementWeek1Demo },
+  { day: 8, title: 'Promise、async/await', component: TestCase },
+  { day: 8, title: 'API Service 封装', component: UserManagementWeek1Demo },
+  { day: 8, title: 'GET 请求与 JSON 响应', component: UserManagementWeek1Demo },
+  { day: 8, title: '用户查询接口实战', component: UserManagementWeek1Demo },
+  { day: 8, title: '综合验收', component: UserManagementWeek1Demo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]
