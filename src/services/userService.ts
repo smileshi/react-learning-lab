@@ -3,17 +3,35 @@ import type { CreateUserRequest, User } from '../types/user';
 
 
 // 查询所有用户
-type UserQueryParams = {
-  keyword?: string;
-  role?: string;
-};
+// type UserQueryParams = {
+//   keyword?: string;
+//   role?: string;
+// };
 
+// const getUsers = async (
+//   params?: UserQueryParams
+// ): Promise<User[]> => {
+//   const response = await http.get<User[]>('/api/users', {
+//     params
+//   });
+
+//   return response.data;
+// };
 const getUsers = async (
-  params?: UserQueryParams
+  params?: {
+    keyword?: string;
+    role?: string;
+  },
+  signal?: AbortSignal
 ): Promise<User[]> => {
   const response = await http.get<User[]>('/api/users', {
-    params
+    params,
+    signal
   });
+
+  if (!Array.isArray(response.data)) {
+    throw new Error('GET /api/users must return a user array. Check the API URL and proxy.');
+  }
 
   return response.data;
 };

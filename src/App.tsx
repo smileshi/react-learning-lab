@@ -30,6 +30,7 @@ import CallbackMemoDemo from './lessons/day06/step04-callback-memo/CallbackMemoD
 import UserManagementPerformanceDemo from './lessons/day06/step05-performance/UserManagementPerformanceDemo'
 import UserManagementWeek1Demo from './lessons/day07/UserManagementWeek1Demo'
 import TestCase from './lessons/day08/TestCase'
+import CleanupDemo from './lessons/day10/CleanupDemo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -72,6 +73,8 @@ const lessons = [
   { day: 8, title: 'GET 请求与 JSON 响应', component: UserManagementWeek1Demo },
   { day: 8, title: '用户查询接口实战', component: UserManagementWeek1Demo },
   { day: 8, title: '综合验收', component: UserManagementWeek1Demo },
+
+  { day: 10, title: '组件卸载时的 Cleanup', component: CleanupDemo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]

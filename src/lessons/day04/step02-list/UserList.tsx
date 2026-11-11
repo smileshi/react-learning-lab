@@ -3,7 +3,7 @@ import UserItem from './UserItem';
 
 type Props = {
   users: User[];
-  onDelete: (id: number) => void;
+  onDelete?: (id: number) => void;
 };
 
 function UserList({ users, onDelete }: Props) {

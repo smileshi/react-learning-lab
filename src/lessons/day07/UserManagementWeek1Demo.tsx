@@ -1,10 +1,11 @@
 
-import {useEffect, useState, useCallback, useRef, useMemo} from 'react';
+import {useEffect, useState, useCallback, useRef} from 'react';
 import { userService } from '../../services/userService';
 import type { CreateUserRequest, User } from '../../types/user';
 import UserList from './components/UserList';
 import UserForm from './components/UserForm';
 import UserFilter from './components/UserFilter';
+import { USER_ROLES } from '../../constants/userRoles';
 
 
 function UserManagementWeek1Demo() {
@@ -27,78 +28,55 @@ function UserManagementWeek1Demo() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [deleteError, setDeleteError] = useState('');
   const deleteInFlight = useRef(false);
-  // const filteredUsers = useMemo(() => {
-  //   const query = keyword.trim().toLowerCase();
-  //   return users.filter(user =>
-  //     (!roleFilter || user.role === roleFilter) &&
-  //     (user.username.toLowerCase().includes(query) || user.email.toLowerCase().includes(query))
-  //   );
-  // }, [users, keyword, roleFilter]);
-  const roles = useMemo(
-  () => [...new Set(users.map(user => user.role))].sort(),
-  [users]
-);
+
 
   const requestId = useRef(0);
 
-  // GET /api/users
-  const loadUsers = useCallback(async () => {
-    const currentRequest = ++requestId.current;
-    try {
-        // 1. 设置 loading = true
-        setLoading(true);
-        console.log(loading);
-        // 2. 清空之前的错误
-        setLoadError('');
-        // 3. 调用 userService.getUsers()
-        // const data = await userService.getUsers();
-        const data = await userService.getUsers({
-          keyword: keyword.trim() || undefined,
-          role: roleFilter || undefined
-        });
-        // 4. 将返回数据保存到 users
-        if (currentRequest === requestId.current) setUsers(data);
-    } catch (err) {
-        // 5. catch 捕获异常
-        console.error('Load users failed:', err);
-        if (currentRequest === requestId.current) setLoadError('Failed to load users.');
-    } finally {
-        // 6. finally 设置 loading = false
-        if (currentRequest === requestId.current) setLoading(false);
+  const loadUsers = useCallback(async (signal?: AbortSignal) => {
+  const currentRequest = ++requestId.current;
+
+  try {
+    setLoading(true);
+    setLoadError('');
+
+    const data = await userService.getUsers(
+      {
+        keyword: keyword.trim() || undefined,
+        role: roleFilter || undefined
+      },
+      signal
+    );
+
+    if (currentRequest === requestId.current && !signal?.aborted) {
+      setUsers(data);
     }
-  }, [keyword, roleFilter]);
+  } catch (err) {
+    if (signal?.aborted) {
+      return;
+    }
 
-  // Load users when component mounts
-  // useEffect(() => {
-  //   const currentRequest = ++requestId.current;
-  //   async function fetchInitialUsers() {
-  //     try {
-  //       const data = await userService.getUsers();
-  //       if (currentRequest === requestId.current) setUsers(data);
-  //     } catch {
-  //       if (currentRequest === requestId.current) setLoadError('Failed to load users.');
-  //     } finally {
-  //       if (currentRequest === requestId.current) setLoading(false);
-  //     }
-  //   }
-  //   void fetchInitialUsers();
-  //   return () => { requestId.current += 1; };
-  // }, []);
+    console.error('Load users failed:', err);
 
-  // useEffect(() => {
-  //   void loadUsers();
+    if (currentRequest === requestId.current) {
+      setLoadError('Failed to load users.');
+    }
+  } finally {
+      if (currentRequest === requestId.current) {
+        setLoading(false);
+      }
+  }
+}, [keyword, roleFilter]);
 
-  //   return () => {
-  //     requestId.current += 1;
-  //   };
-  // }, [loadUsers]);
   useEffect(() => {
+  const controller = new AbortController();
+
   const timer = window.setTimeout(() => {
-    void loadUsers();
+    void loadUsers(controller.signal);
   }, 800);
 
   return () => {
     window.clearTimeout(timer);
+    controller.abort();
   };
 }, [loadUsers]);
 
@@ -188,10 +166,11 @@ function UserManagementWeek1Demo() {
         <UserFilter
           keyword={keyword}
           roleFilter={roleFilter}
-          roles={roles}
+          roles={USER_ROLES}
           onKeywordChange={setKeyword}
           onRoleChange={setRoleFilter}
         />
+        
         <p>Showing {users.length} users</p>
         {deleteError && <p role="alert" style={{ color: 'red' }}>{deleteError}</p>}
         {loading && <p>Loading users...</p>}
