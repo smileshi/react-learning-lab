@@ -31,6 +31,11 @@ import UserManagementPerformanceDemo from './lessons/day06/step05-performance/Us
 import UserManagementWeek1Demo from './lessons/day07/UserManagementWeek1Demo'
 import TestCase from './lessons/day08/TestCase'
 import CleanupDemo from './lessons/day10/CleanupDemo'
+import PromiseAllVsAllSettledDemo from './lessons/day11/PromiseAllVsAllSettledDemo'
+import PageDataLoadingDemo from './lessons/day11/PageDataLoadingDemo'
+import AxiosInterceptorDemo from './lessons/day11/AxiosInterceptorDemo'
+import StateArchitectureDemo from './lessons/day12/StateArchitectureDemo'
+import ContextApiDemo from './lessons/day12/ContextApiDemo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -75,6 +80,18 @@ const lessons = [
   { day: 8, title: '综合验收', component: UserManagementWeek1Demo },
 
   { day: 10, title: '组件卸载时的 Cleanup', component: CleanupDemo },
+
+  { day: 11, title: 'PromiseAll Vs AllSettled', component: PromiseAllVsAllSettledDemo },
+  { day: 11, title: 'Page data loading', component: PageDataLoadingDemo },
+  { day: 11, title: 'Axios Interceptor', component: AxiosInterceptorDemo },
+
+  { day: 12, title: 'State Ownership', component: StateArchitectureDemo },
+  { day: 12, title: 'Lifting State Up', component: AxiosInterceptorDemo },
+  { day: 12, title: 'State Colocation', component: AxiosInterceptorDemo },
+  { day: 12, title: 'Derived State', component: AxiosInterceptorDemo },
+  { day: 12, title: 'Context API', component: ContextApiDemo },
+  { day: 12, title: 'State Architecture', component: AxiosInterceptorDemo },
+  { day: 12, title: '综合验收与 READM', component: AxiosInterceptorDemo },
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]
