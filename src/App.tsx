@@ -36,6 +36,9 @@ import PageDataLoadingDemo from './lessons/day11/PageDataLoadingDemo'
 import AxiosInterceptorDemo from './lessons/day11/AxiosInterceptorDemo'
 import StateArchitectureDemo from './lessons/day12/StateArchitectureDemo'
 import ContextApiDemo from './lessons/day12/ContextApiDemo'
+import NetworkInspectionDemo from './lessons/day13/NetworkInspectionDemo'
+import RenderMechanismDemo from './lessons/day14/RenderMechanismDemo'
+import ContextPerformanceDemo from './lessons/day14/ContextPerformanceDemo'
 
 const lessons = [
   { day: 1, title: '组件入门', component: IntroDemo },
@@ -92,6 +95,21 @@ const lessons = [
   { day: 12, title: 'Context API', component: ContextApiDemo },
   { day: 12, title: 'State Architecture', component: AxiosInterceptorDemo },
   { day: 12, title: '综合验收与 READM', component: AxiosInterceptorDemo },
+
+  { day: 13, title: 'Network 分析', component: NetworkInspectionDemo },
+  { day: 13, title: 'HTTP 状态码排查', component: NetworkInspectionDemo },
+  { day: 13, title: '参数格式问题', component: NetworkInspectionDemo },
+  { day: 13, title: 'Response Structure', component: NetworkInspectionDemo },
+  { day: 13, title: 'CORS', component: NetworkInspectionDemo },
+  { day: 13, title: '综合故障排查', component: NetworkInspectionDemo },
+  { day: 13, title: '总结与 README', component: NetworkInspectionDemo },
+
+  { day: 14, title: 'React Render 机制', component: RenderMechanismDemo },
+  { day: 14, title: 'React.memo 深入', component: RenderMechanismDemo },
+  { day: 14, title: 'Context 性能问题', component: ContextPerformanceDemo },
+  { day: 14, title: 'React Profiler', component: ContextPerformanceDemo },
+  
+
 ]
 
 const days = [...new Set(lessons.map(lesson => lesson.day))]
